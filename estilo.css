@@ -1,0 +1,747 @@
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Texto dos parágrafos */
+p {
+  text-align: justify;
+}
+
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+h1 {
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+h2 {
+  margin-top: 1.4em;
+  margin-bottom: 0.7em;
+}
+
+h3 {
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+}
+
+
+/* =========================================================
+   EQUAÇÕES
+   ========================================================= */
+
+.math.display {
+  text-align: center;
+}
+
+
+/* =========================================================
+   TABELAS
+   ========================================================= */
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th,
+td {
+  padding: 6px 10px;
+}
+
+
+/* =========================================================
+   EXEMPLOS
+   ========================================================= */
+
+div[id^="exm-"] {
+  margin: 1.5em 0;
+  padding: 1em 1.2em;
+  border-left: 4px solid #176B73;
+  background-color: #f7f7f7;
+}
+
+div[id^="exm-"] p:first-child {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   LISTAS
+   ========================================================= */
+
+ul,
+ol {
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   CÓDIGO
+   ========================================================= */
+
+pre {
+  font-size: 0.9em;
+}
+
+div.sourceCode {
+  border-radius: 5px;
+}
+
+
+/* =========================================================
+   IMAGENS E FIGURAS
+   ========================================================= */
+
+img {
+  max-width: 100%;
+}
+
+figure {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+.figure-caption {
+  text-align: center;
+  font-size: 0.95em;
+  margin-top: 0.5em;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+  color: #176B73;
+}
+
+a:hover {
+  color: #104f55;
+}
+
+
+/* =========================================================
+   ÍNDICE LATERAL
+   ========================================================= */
+
+#TOC {
+  font-size: 0.88rem;
+}
+
+#TOC a {
+  text-decoration: none;
+}
+
+#TOC a.active {
+  color: #176B73 !important;
+  font-weight: 600;
+}
+
+/* =========================================================
+   BUSCA ACIMA DO ÍNDICE
+   ========================================================= */
+
+.busca-aula {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.busca-aula input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+
+  background-color: #ffffff;
+}
+
+.busca-aula input:focus {
+  outline: none;
+  border-color: #176B73;
+  box-shadow: 0 0 0 2px rgba(23, 107, 115, 0.10);
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO ENTRE CAPÍTULOS
+   ========================================================= */
+
+.navegacao-capitulo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+  padding-top: 1.2rem;
+
+  border-top: 1px solid #dddddd;
+}
+
+.navegacao-capitulo a {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0.7rem 0.9rem;
+
+  text-decoration: none !important;
+
+  background-color: #ffffff;
+
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+}
+
+.navegacao-capitulo a:hover {
+  background-color: #f3f8f8;
+  border-color: #176B73;
+}
+
+.nav-rotulo {
+  margin-bottom: 0.2rem;
+
+  color: #777777;
+
+  font-size: 0.74rem;
+}
+
+.nav-titulo {
+  color: #176B73;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.nav-anterior {
+  text-align: left;
+}
+
+.nav-proximo {
+  text-align: right;
+}
+
+.nav-vazio {
+  display: block;
+}
+
+@media (max-width: 768px) {
+
+  .navegacao-capitulo {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-vazio {
+    display: none;
+  }
+
+  .nav-proximo {
+    text-align: left;
+  }
+}
+
+/* =========================================================
+   CADA CAPÍTULO OCUPA PELO MENOS UMA TELA
+   ========================================================= */
+
+main.content section.level1 {
+  min-height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mantém a navegação no final da tela quando
+   o capítulo possui pouco conteúdo */
+main.content section.level1 > .navegacao-capitulo {
+  margin-top: auto;
+  padding-top: 1.2rem;
+}
+/* =========================================================
+   EXIBIÇÃO DE UM CAPÍTULO POR VEZ
+   ========================================================= */
+
+/* Por padrão, todos os grandes capítulos ficam ocultos */
+main.content section.level1 {
+  display: none;
+}
+
+
+/* Somente o capítulo atual aparece */
+main.content section.level1.capitulo-ativo {
+  display: block;
+}
+
+
+/* Ao navegar para subseções, evita que o título fique
+   excessivamente colado no topo */
+main.content section.level1,
+main.content section.level2,
+main.content section.level3 {
+  scroll-margin-top: 1.5rem;
+}
+
+
+/* =========================================================
+   CAPÍTULO ATUAL NO ÍNDICE
+   ========================================================= */
+
+#TOC a.capitulo-toc-ativo {
+  color: #176B73 !important;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BUSCA ACIMA DO ÍNDICE
+   ========================================================= */
+
+.busca-aula {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.busca-aula input {
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 0.5rem 0.65rem;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+
+  background-color: #ffffff;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.busca-aula input:focus {
+  outline: none;
+  border-color: #176B73;
+  box-shadow: 0 0 0 2px rgba(23, 107, 115, 0.10);
+}
+
+
+/* =========================================================
+   NAVEGAÇÃO ENTRE CAPÍTULOS
+   ========================================================= */
+
+.navegacao-capitulo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1.5rem;
+
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+  padding-top: 1.2rem;
+
+  border-top: 1px solid #dddddd;
+}
+
+
+.navegacao-capitulo a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 62px;
+
+  padding: 0.7rem 0.9rem;
+
+  text-decoration: none !important;
+
+  background-color: #ffffff;
+
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+}
+
+
+.navegacao-capitulo a:hover {
+  background-color: #f3f8f8;
+  border-color: #176B73;
+}
+
+
+.nav-rotulo {
+  margin-bottom: 0.2rem;
+
+  color: #777777;
+
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+
+
+.nav-titulo {
+  color: #176B73;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+
+.nav-anterior {
+  text-align: left;
+}
+
+
+.nav-proximo {
+  text-align: right;
+}
+
+
+.nav-vazio {
+  display: block;
+}
+
+
+/* =========================================================
+   CELULAR / TELA PEQUENA
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .navegacao-capitulo {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .nav-vazio {
+    display: none;
+  }
+
+  .nav-proximo {
+    text-align: left;
+  }
+
+}
+
+/* Busca no documento */
+.busca-aula {
+  display: flex;
+  gap: 0.4rem;
+  width: 100%;
+  margin: 0.75rem 0;
+}
+.busca-aula input {
+  min-width: 0;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font: inherit;
+  font-size: 0.85rem;
+}
+.busca-aula button {
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #176B73;
+  border-radius: 5px;
+  background: #176B73;
+  color: #ffffff;
+  cursor: pointer;
+}
+.busca-aula button:hover { background: #104f55; }
+.resultados-busca { margin-bottom: 1rem; font-size: 0.82rem; }
+.busca-contagem { margin: 0.35rem 0; font-weight: 600; }
+.resultado-busca {
+  display: block;
+  width: 100%;
+  margin: 0.25rem 0;
+  padding: 0.4rem 0.5rem;
+  border: 0;
+  border-left: 2px solid #176B73;
+  background: #f5f8f8;
+  color: #174f54;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.35;
+}
+.resultado-busca:hover { background: #eaf2f2; }
+
+
+/* Ícone de e-mail junto ao nome da autora */
+.email-correspondencia {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.45rem;
+  color: inherit;
+  font-size: 1rem;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.email-correspondencia:hover,
+.email-correspondencia:focus {
+  color: #176B73;
+  text-decoration: underline;
+}
+
+/* Título e caixa de pesquisa na coluna do índice */
+.titulo-indice-documento {
+  margin: 0 0 0.8rem;
+  font-size: 1.6rem !important;
+  line-height: 1.15;
+  font-weight: 700 !important;
+}
+
+#TOC .titulo-indice-com-pdf {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.baixar-pdf-indice {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  color: #b34c45;
+}
+
+.baixar-pdf-indice svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.baixar-pdf-indice:hover,
+.baixar-pdf-indice:focus-visible {
+  color: #873b36;
+}
+
+.busca-aula {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.9rem;
+}
+
+.busca-aula input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0.48rem 0.6rem 0.48rem 2rem;
+  border: 1px solid #d4d7da;
+  border-radius: 5px;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%239099a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0.55rem center;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.busca-aula input:focus {
+  outline: none;
+  border-color: #176B73;
+  box-shadow: 0 0 0 2px rgba(23, 107, 115, 0.10);
+}
+
+#toc-title {
+  margin-top: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#TOC > ul {
+  font-size: 0.88rem;
+}
+
+/* =========================================================
+   IDENTIDADE VISUAL DO CABEÇALHO
+   ========================================================= */
+
+#title-block-header.quarto-title-block.default {
+  display: grid;
+  grid-template-columns: 7.25rem minmax(0, 1fr);
+  column-gap: 1.25rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border-top: 7px solid #12366a;
+  border-radius: 0.65rem;
+  background: #fbfcfd;
+}
+
+#title-block-header.quarto-title-block.default::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 7rem;
+  height: 7rem;
+  background: url("figuras/IdentidadeFlaviaSigmoide.png") center / contain no-repeat;
+}
+
+#title-block-header .quarto-title {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+#title-block-header .quarto-title-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem 2rem;
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 0.6rem;
+}
+
+#title-block-header .quarto-title-meta > div:last-child {
+  justify-self: end;
+  text-align: right;
+}
+
+#title-block-header .title {
+  color: #12366a;
+  font-weight: 700;
+}
+
+#title-block-header .subtitle {
+  margin-bottom: 0;
+}
+
+.links-autora {
+  display: flex;
+  flex-wrap: nowrap;
+  align-self: flex-start;
+  justify-content: flex-start;
+  width: max-content;
+  max-width: none;
+  gap: 0.45rem;
+  margin: 0.4rem 0 0;
+}
+
+.quarto-title-meta > div:first-child .quarto-title-meta-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: visible;
+}
+
+.quarto-title-meta > div:first-child .quarto-title-meta-contents p {
+  margin: 0;
+}
+
+.links-autora a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid #d9e1e5;
+  border-radius: 0.35rem;
+  background: #fff;
+  color: #40525a;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.links-autora a:hover,
+.links-autora a:focus-visible {
+  border-color: #176e76;
+  color: #176e76;
+  text-decoration: none;
+}
+
+.links-autora svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: #176e76;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+@media (max-width: 700px) {
+  #title-block-header.quarto-title-block.default {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+    padding: 1rem;
+  }
+
+  #title-block-header.quarto-title-block.default::before {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  #title-block-header .quarto-title,
+  #title-block-header .quarto-title-meta {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+  }
+
+  #title-block-header .quarto-title-meta {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 0.25rem;
+  }
+
+  #title-block-header .quarto-title-meta > div:last-child {
+    justify-self: center;
+    text-align: center;
+  }
+
+  #title-block-header .quarto-title-meta > div:first-child .quarto-title-meta-contents {
+    align-items: center;
+  }
+
+  .links-autora {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .links-autora {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================================================
+   REFERÊNCIAS SEM DESTAQUE PERSISTENTE NO ÍNDICE
+   ========================================================= */
+
+#TOC a[id^="toc-refer"],
+#TOC a[id^="toc-refer"].active,
+#TOC a[id^="toc-refer"].active:focus,
+#TOC a[id^="toc-refer"].active:hover {
+  color: inherit !important;
+  border-left-color: transparent !important;
+  font-weight: 400 !important;
+}
