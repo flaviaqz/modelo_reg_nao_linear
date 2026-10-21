@@ -306,11 +306,11 @@ Tabela&nbsp;2.1: Tabela comparativa dos modelos e suas derivadas
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><span class="math display">\[\eta(x, \boldsymbol{\beta}) = \beta_0 + \beta_1 x + \beta_2 x^2\]</span></td>
-<td style="text-align: center;"><span id="eq-dois"><span class="math display">\[ \eta(t, \boldsymbol{\beta}) = \beta_0 e^{−\beta_1 X}  \tag{2.1}\]</span></span></td>
+<td style="text-align: center;"><span id="eq-dois"><span class="math display">\[ \eta(x, \boldsymbol{\beta}) = \beta_0 e^{−\beta_1 x}  \tag{2.1}\]</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_0} = 1\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_1} = x\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_2} = x^2\)</span><br><br> <em>Apenas constantes e variáveis conhecidas, livres de parâmetros</em></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_0} =  e^{-\beta_1 x}\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_1} = -\beta_0 X e^{-\beta_1 X}\)</span>$<br><br> <em>Envolvem os parâmetros estruturais do modelo</em></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_0} =  e^{-\beta_1 x}\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_1} = -\beta_0 x e^{-\beta_1 x}\)</span><br><br><br><br> <em>Envolvem os parâmetros estruturais do modelo</em></td>
 </tr>
 </tbody>
 </table>
@@ -1050,7 +1050,7 @@ A incerteza das estimativas dos parâmetros pode ser expressa por erros-padrão 
 \pm
 t_{1-\alpha/2,n-p}\,
 SE(\hat{\theta}_j).\]</span></p>
-<p>Esse intervalo é simétrico em torno de <span class="math inline">\(\hat{\theta}_j\)</span> e usa a distribuição <span class="math inline">\(t\)</span> com <span class="math inline">\((n-p)\)</span> graus de liberdade, como é usual nos resultados de mínimos quadrados não lineares. Sua qualidade depende da adequação da aproximação linear local: se a função apresentar curvatura acentuada na região das estimativas, o intervalo pode representar mal a incerteza. Nesses casos, podem ser considerados métodos como o perfil de verossimilhança ou o bootstrap.</p>
+<p>Esse intervalo é simétrico em torno de <span class="math inline">\(\hat{\theta}_j\)</span> e usa a distribuição <span class="math inline">\(t\)</span> com <span class="math inline">\((n-p)\)</span> graus de liberdade, como é usual nos resultados de mínimos quadrados não lineares. Sua qualidade depende da adequação da aproximação linear local, pois se a função apresentar curvatura acentuada na região das estimativas, o intervalo pode representar mal a incerteza. Nesses casos, podem ser considerados métodos como o perfil de verossimilhança ou o bootstrap.</p>
 <p><strong>Intervalos de confiança baseados em perfil</strong></p>
 <p>No intervalo de Wald, calcula-se a margem de erro a partir do erro-padrão da estimativa. No intervalo baseado em perfil, avalia-se como o ajuste do modelo muda para diferentes valores de um parâmetro, reestimando os demais parâmetros a cada valor fixado. Esse procedimento é chamado de perfil do parâmetro.</p>
 <p>A soma de quadrados perfilada para <span class="math inline">\(\theta_j\)</span> é <span class="math display">\[ S_p(\theta_j)
