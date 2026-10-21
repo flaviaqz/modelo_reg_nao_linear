@@ -252,7 +252,7 @@ Figura&nbsp;1.1: Modelo de regressão gaussiana (linear simples). Fonte: Zeviani
 <p>Contudo, cada uma dessas premissas pode ser ajustada na formulação de modelos alternativos. Em muitos problemas de regressão, por exemplo, a relação entre a variável resposta e as variáveis explicativas não pode ser representada adequadamente por uma combinação linear dos parâmetros. Nesses casos, possíveis alternativas envolvem adotar:</p>
 <ol type="i">
 <li><p>uma estrutura polinomial, tal como uma forma quadrática <span class="math inline">\(\mu_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2\)</span>;</p></li>
-<li><p>uma função de ligação não linear, tal como <span class="math inline">\(\mu_i = \exp(\beta_0 + \beta_1 x_i)\)</span>; ou</p></li>
+<li><p>uma função de ligação não linear, tal como <span class="math inline">\(\mu_i = e^{(\beta_0 + \beta_1 x_i)}\)</span>; ou</p></li>
 <li><p>uma estrutura intrinsicamente não linear.</p></li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -285,35 +285,52 @@ E(Y_i\mid x_i)
 <p>Os modelos de regressão não linear são frequentemente utilizados para descrever relações entre uma resposta contínua e uma ou mais variáveis explicativas quando a <strong>função da média não é linear nos parâmetros</strong>. Por exemplo, situções que podem representar <em>o crescimento de um indivíduo em função da idade, a concentração de um fármaco no organismo ao longo do tempo ou a resposta de um material à variação de temperatura</em>.</p>
 <p>Para esse tipo de situações, a distribuição Gaussiana representa bem o comportamento da resposta, embora outras distribuições possam ser mais apropriadas dependendo da natureza dos dados e das hipóteses adotadas para o modelo.</p>
 <p>Por definição, um modelo é considerado <strong>não linear</strong> quando pelo menos uma das derivadas parciais do vetor de valores esperados <span class="math inline">\(\eta\)</span> em relação aos parâmetros <span class="math inline">\(\boldsymbol{\theta}\)</span> depende explicitamente desses mesmos parâmetros.</p>
-<p>Considere os seguintes modelos correspondentes à função quadrática e à lei de Mitscherlich, respectivamente: <span id="eq-um"><span class="math display">\[\eta(x,\theta_0, \theta_1, \theta_2) = \theta_0 + \theta_1 x + \theta_2 x^2 \tag{2.1}\]</span></span> <span id="eq-dois"><span class="math display">\[ \eta(x,\theta_a, \theta_e, \theta_c) = \theta_a(1 − exp\{−\theta_e(x −\theta_c)\})  \tag{2.2}\]</span></span></p>
-<p>Ao avaliar as derivadas parciais para a <a href="#eq-um" class="quarto-xref">Equação&nbsp;2.1</a>: <span id="eq-derivadasUM"><span class="math display">\[
-\begin{aligned}
-\frac{\partial \eta}{\partial \theta_0} &amp;= 1, \\
-\frac{\partial \eta}{\partial \theta_1} &amp;= x, \\
-\frac{\partial \eta}{\partial \theta_2} &amp;= x^2
-\end{aligned}
-\tag{2.3}\]</span></span> observa-se que nenhuma delas envolve os parâmetros do modelo, contendo apenas quantidades conhecidas (<span class="math inline">\(1\)</span>, <span class="math inline">\(x\)</span> e <span class="math inline">\(x^2\)</span>). Consequentemente, a <a href="#eq-um" class="quarto-xref">Equação&nbsp;2.1</a> define um modelo linear nos parâmetros.</p>
-<p>Por outro lado, ao analisar as derivadas para a expressão da <a href="#eq-dois" class="quarto-xref">Equação&nbsp;2.2</a> <span id="eq-derivadasDOIS"><span class="math display">\[
-\begin{aligned}
-\frac{\partial \eta}{\partial \theta_a} &amp;= 1 - \exp\left\{-\theta_b(x - \theta_c)\right\} \\
-\frac{\partial \eta}{\partial \theta_b} &amp;= -\theta_a(\theta_c - x)\exp\left\{-\theta_b(x - \theta_c)\right\} \\
-\frac{\partial \eta}{\partial \theta_c} &amp;= -\theta_a\theta_b\exp\left\{-\theta_b(x - \theta_c)\right\}
-\end{aligned}
-\tag{2.4}\]</span></span></p>
-<p>nota-se que as derivadas envolvem parâmetros estruturais do modelo. Portanto, conclui-se que a expressão caracteriza um modelo não linear.</p>
+<p>Considere dois modelos e suas derivadas em relação aos seus respectivos parâmetros, conforme <a href="#tbl-modelos" class="quarto-xref">Tabela&nbsp;2.1</a>.</p>
+<div id="tbl-modelos" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2.1: Tabela comparativa dos modelos e suas derivadas
+</figcaption>
+<div aria-describedby="tbl-modelos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Modelo Polinomial Quadrático</th>
+<th style="text-align: center;">Modelo de Decaimento Exponencial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math display">\[\eta(x, \boldsymbol{\beta}) = \beta_0 + \beta_1 x + \beta_2 x^2\]</span></td>
+<td style="text-align: center;"><span id="eq-dois"><span class="math display">\[ \eta(t, \boldsymbol{\beta}) = \beta_0 e^{−\beta_1 X}  \tag{2.1}\]</span></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_0} = 1\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_1} = x\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_2} = x^2\)</span><br><br> <em>Apenas constantes e variáveis conhecidas, livres de parâmetros</em></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_0} =  e^{-\beta_1 x}\)</span><br><span class="math inline">\(\dfrac{\partial \eta}{\partial \beta_1} = -\beta_0 X e^{-\beta_1 X}\)</span>$<br><br> <em>Envolvem os parâmetros estruturais do modelo</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>O Modelo Linear Quadrático é definido como sendo um modelo linear nos parâmetros, pois ao avaliar as derivadas parciais para sua equação, observa-se que nenhuma delas envolve os parâmetros do modelo, contendo apenas quantidades conhecidas (<span class="math inline">\(1\)</span>, <span class="math inline">\(x\)</span> e <span class="math inline">\(x^2\)</span>). Por outro lado, ao analisar as derivadas parciais para a equação da direita, nota-se que os resultados das derivadas envolvem parâmetros estruturais do modelo. Portanto, conclui-se que o Modelo Exponencial Assintótico caracteriza um modelo não linear.</p>
 <section id="modelo-não-linear-linearizável" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="modelo-não-linear-linearizável"><span class="header-section-number">2.1</span> Modelo não-linear linearizável</h2>
 <p>A literatura estatística também contempla classificações intermediárias. Um modelo é dito <strong>linearizável</strong> se puder ser transformado em um modelo linear por meio de uma transformação matemática ou reparametrização adequada. Um exemplo clássico é a função:</p>
-<p><span class="math display">\[ \eta(x, \boldsymbol{\theta}) = \exp\{\theta_0 + \theta_1 x\}\]</span></p>
+<p><span class="math display">\[ \eta(x, \boldsymbol{\theta}) = e^{(\theta_0 + \theta_1 x)}\]</span></p>
 <p>que, ao se aplicar a transformação logarítmica, assume a representação linear: <span class="math display">\[log(\eta(x, \boldsymbol{\theta})) = \theta_0 + \theta_1 x.\]</span></p>
 </section>
 <section id="modelos-intrinsicamente-não-lineares" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="modelos-intrinsicamente-não-lineares"><span class="header-section-number">2.2</span> Modelos intrinsicamente não lineares</h2>
-<p>Em contrapartida, os modelos que não podem ser transformados em modelos lineares por meio de nenhuma manipulação algébrica ou mudança de escala (como aplicação de logaritmos, inversas ou raízes) são classificados como <strong>intrinsicamente não lineares</strong>. Um exemplo é a <a href="#eq-dois" class="quarto-xref">Equação&nbsp;2.2</a> ou curvas de crescimento complexas (como o modelo logístico ou de Gompertz, que veremos mais à frente).</p>
+<p>Em contrapartida, os modelos que não podem ser transformados em modelos lineares por meio de nenhuma manipulação algébrica ou mudança de escala (como aplicação de logaritmos, inversas ou raízes) são classificados como <strong>intrinsicamente não lineares</strong>. Um exemplo é a <a href="#eq-dois" class="quarto-xref">Equação&nbsp;2.1</a> ou curvas de crescimento complexas (como o modelo logístico ou de Gompertz, que veremos mais à frente).</p>
 </section>
 <section id="modelos-parcialmente-lineares" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="modelos-parcialmente-lineares"><span class="header-section-number">2.3</span> Modelos parcialmente lineares</h2>
-<p>Uma classificação útil dos MNL é quanto ao número de parâmetros que ocorrem de forma linear. Nota-se que nas derivadas parciais da <a href="#eq-dois" class="quarto-xref">Equação&nbsp;2.2</a>, vistas em <a href="#eq-derivadasDOIS" class="quarto-xref">Equação&nbsp;2.4</a>, a derivada referente a <span class="math inline">\(\theta_a\)</span> não depende de <span class="math inline">\(\theta_a\)</span>. O mesmo comportamento, contudo, não se repete para os demais parâmetros. Por essa razão, define-se que o modelo é <strong>parcialmente linear em <span class="math inline">\(\theta_a\)</span></strong>, visto que, ao fixar os demais parâmetros como constantes conhecidas, a estrutura reduz-se a um modelo linear.</p>
+<p>Uma classificação útil dos MNL é quanto ao número de parâmetros que ocorrem de forma linear. Nota-se que nas derivadas parciais da <a href="#eq-dois" class="quarto-xref">Equação&nbsp;2.1</a>, a derivada referente a <span class="math inline">\(\theta_a\)</span> não depende de <span class="math inline">\(\theta_a\)</span>. O mesmo comportamento, contudo, não se repete para os demais parâmetros. Por essa razão, define-se que o modelo é <strong>parcialmente linear em <span class="math inline">\(\theta_a\)</span></strong>, visto que, ao fixar os demais parâmetros como constantes conhecidas, a estrutura reduz-se a um modelo linear.</p>
 </section>
 <section id="representações-gráficas-de-modelos-de-regressão-não-linear" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="representações-gráficas-de-modelos-de-regressão-não-linear"><span class="header-section-number">2.4</span> Representações gráficas de modelos de regressão não linear</h2>
@@ -394,7 +411,7 @@ Conteúdos, exemplos e interpretações ainda estão sendo revisados; contribui�
 <div id="tbl-exemploAER-nls" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exemploAER-nls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;2.1: Exemplos de fenômenos e possíveis aplicações de modelos não lineares na área aeronáutica.
+Tabela&nbsp;2.2: Exemplos de fenômenos e possíveis aplicações de modelos não lineares na área aeronáutica.
 </figcaption>
 <div aria-describedby="tbl-exemploAER-nls-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -450,7 +467,7 @@ Tabela&nbsp;2.1: Exemplos de fenômenos e possíveis aplicações de modelos nã
 </div>
 </figure>
 </div>
-<p>Nessas situações (<a href="#tbl-exemploAER-nls" class="quarto-xref">Tabela&nbsp;2.1</a>), uma função não linear pode representar diretamente a <strong>forma esperada da relação</strong>, e seus parâmetros ou funções deles podem assumir <strong>interpretação prática</strong>. Além disso, quando a estrutura escolhida é adequada, o modelo pode oferecer uma <strong>representação parcimoniosa do fenômeno</strong>, isto é, até mesmo comportamentos complexos podem ser descritos por um número relativamente pequeno de parâmetros com significado próprio.</p>
+<p>Nessas situações (<a href="#tbl-exemploAER-nls" class="quarto-xref">Tabela&nbsp;2.2</a>), uma função não linear pode representar diretamente a <strong>forma esperada da relação</strong>, e seus parâmetros ou funções deles podem assumir <strong>interpretação prática</strong>. Além disso, quando a estrutura escolhida é adequada, o modelo pode oferecer uma <strong>representação parcimoniosa do fenômeno</strong>, isto é, até mesmo comportamentos complexos podem ser descritos por um número relativamente pequeno de parâmetros com significado próprio.</p>
 </section>
 <section id="vantagens-para-uso-de-modelos-não-lineares" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="vantagens-para-uso-de-modelos-não-lineares"><span class="header-section-number">2.5.2</span> Vantagens para uso de modelos não lineares</h3>
@@ -877,18 +894,20 @@ Achieved convergence tolerance: 9.929e-07</code></pre>
 <h1 data-number="4"><span class="header-section-number">4</span> Inferência em modelos não lineares</h1>
 <p>A partir de uma amostra de observações de <span class="math inline">\(Y\)</span>, associadas aos respectivos valores observados de <span class="math inline">\(\mathbf X\)</span>, busca-se estimar as quantidades desconhecidas <span class="math inline">\(\boldsymbol{\theta}\)</span> e <span class="math inline">\(\sigma^2\)</span>, que são os parâmetros do modelo.</p>
 <p>Em um modelo de regressão linear múltipla, o vetor de médias condicionais é dado por uma combinação linear dos parâmetros: <span class="math display">\[E(\mathbf Y\mid \mathbf X)=\mathbf X\boldsymbol{\theta}\]</span> e, temos que a matriz de derivadas da sua função média em relação aos parâmetros coincide com a matriz de planejamento <span class="math inline">\(\mathbf X\)</span>.</p>
-<p>Já na regressão não linear, a função média <span class="math inline">\(\eta(\mathbf X, \boldsymbol{\theta})\)</span> não depende linearmente dos parâmetros <span class="math inline">\(\theta\)</span>, e precisamos então recorrer ao uso da matriz Jacobiana. Os elementos da matriz Jacobiana correspondem às derivadas parciais da função média em relação aos parâmetros, que <strong>geralmente dependem tanto das variáveis explicativas quanto dos parâmetros do modelo</strong>. Assim, essa matriz não coincide, em geral, com a matriz original de variáveis explicativas.</p>
-<p><span class="math display">\[\mathbf{F}_0 = \mathbf{J}(\boldsymbol{\theta})=\begin{bmatrix}  \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_p} \\  \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_p} \\  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\  \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_p}  \end{bmatrix}\]</span> Contudo, a Jacobiana permite construir uma aproximação linear local do modelo não linear, utilizada em procedimentos de estimação e inferência.</p>
+<p>Já na regressão não linear, como a função média <span class="math inline">\(\eta(\mathbf X, \boldsymbol{\theta})\)</span> é não linear nos parâmetros <span class="math inline">\(\theta\)</span>, não é possível obter diretamente os estimadores pelos métodos da regressão linear. Para contornar isso, utiliza-se a matriz Jacobiana para construir uma aproximação linear local do modelo. Essa aproximação local é fundamental para os procedimentos iterativos de estimação e inferência.</p>
+<p>Os elementos da matriz Jacobiana correspondem às derivadas parciais da função média em relação aos parâmetros, que <strong>geralmente dependem tanto das variáveis explicativas quanto dos parâmetros do modelo</strong>.</p>
+<p><span class="math display">\[\mathbf{F}_0 = \mathbf{J}(\boldsymbol{\theta})=\begin{bmatrix}  \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_1, \theta_0)}{\partial \theta_p} \\  \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_2, \theta_0)}{\partial \theta_p} \\  \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\  \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_1} &amp; \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_2} &amp; \dots &amp; \frac{\partial \eta(x_n, \theta_0)}{\partial \theta_p}  \end{bmatrix}\]</span></p>
 <section id="método-dos-mínimos-quadrados" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="método-dos-mínimos-quadrados"><span class="header-section-number">4.1</span> Método dos mínimos quadrados</h2>
 <p>Em modelos não lineares, sob a suposição de efeitos fixos, erros independentes, distribuição Gaussiana e variância constante, a estimação dos parâmetros da função média pode ser realizada pelo método dos mínimos quadrados.</p>
-<p>Nesse caso, os estimadores dos parâmetros são obtidos pela minimização da soma dos quadrados das diferenças entre os valores observados <span class="math inline">\(y_i\)</span> e os valores ajustados pelo modelo,</p>
+<p>Os estimadores dos parâmetros são obtidos pela minimização da soma dos quadrados das diferenças entre os valores observados <span class="math inline">\(y_i\)</span> e os valores ajustados pelo modelo,</p>
 <p><span id="eq-sqd-mnl"><span class="math display">\[ SQR(\theta)=\sum_{i} \left[
 y_i-\eta(x_i,\boldsymbol{\theta})
 \right]^2.
-\tag{4.1}\]</span></span> Diferentemente da regressão linear, em modelos não lineares, a matrix <span class="math inline">\(\mathbf X\)</span> não é completamente conhecida pois a primeira derivada de <span class="math inline">\(\eta(x,\theta)\)</span> em relação a <span class="math inline">\(\boldsymbol \theta\)</span> envolve parâmetros que são desconhecidos. Nesse caso, a estimação considera um procedimento numérico iterativo até a obtenção da convergência, conforme algum critério.</p>
-<p>Para estimar os parâmetros do modelo via Mínimos Quadrados Ordinários (ou Gauss-Newton), recorremos à série de Taylor de primeira ordem em torno de um vetor de parâmetros de referência <span class="math inline">\(\theta_0\)</span>: <span class="math display">\[\eta(x, \theta) \approx \eta(x, \theta_0) + \sum_{j=1}^{p} \frac{\partial \eta(x, \theta_0)}{\partial \theta_j} (\theta_j - \theta_{j0})\]</span> Ao expandir a função para todas as <span class="math inline">\(n\)</span> observações do conjunto de dados, chegamos à matriz de derivadas parciais, que é a matriz Jacobiana do modelo. Em notação matricial, temos: <span class="math display">\[\eta(\boldsymbol{\theta}) \approx \eta(\boldsymbol{\theta}_0) + \mathbf{F}_0 (\boldsymbol{\theta} - \boldsymbol{\theta}_0)\]</span></p>
-<p>Essa matriz <span class="math inline">\(\mathbf{F}_0\)</span> assume o papel da matriz de desenho <span class="math inline">\(X\)</span> da regressão linear.</p>
+\tag{4.1}\]</span></span></p>
+<p>Na regressão não linear, a função média <span class="math inline">\(\eta(X,\theta)\)</span> não é linear nos parâmetros <span class="math inline">\(\theta\)</span>, impossibilitando a obtenção de estimadores por meio das equações normais dos mínimos quadrados lineares. Dessa forma, a estimação dos parâmetros requer procedimentos iterativos, nos quais a função é linearizada localmente por expansões de Taylor.</p>
+<p>Assim, para estimar os parâmetros do modelo via Mínimos Quadrados Ordinários (ou Gauss-Newton), recorremos à série de Taylor de primeira ordem em torno de um vetor de parâmetros de referência <span class="math inline">\(\theta_0\)</span>: <span class="math display">\[\eta(x, \theta) \approx \eta(x, \theta_0) + \sum_{j=1}^{p} \frac{\partial \eta(x, \theta_0)}{\partial \theta_j} (\theta_j - \theta_{j0})\]</span> Ao expandir a função para todas as <span class="math inline">\(n\)</span> observações do conjunto de dados, chegamos à matriz de derivadas parciais, que é a matriz Jacobiana do modelo. Em notação matricial, temos: <span class="math display">\[\eta(\boldsymbol{\theta}) \approx \eta(\boldsymbol{\theta}_0) + \mathbf{F}_0 (\boldsymbol{\theta} - \boldsymbol{\theta}_0)\]</span></p>
+<p>Essa matriz <span class="math inline">\(\mathbf{F}_0\)</span> assume o papel da matriz de delineamento <span class="math inline">\(X\)</span> da regressão linear e desempenha papel fundamental na atualização das estimativas e na convergência do algoritmo de ajuste.</p>
 <p>O vetor de correção dos parâmetros (<span class="math inline">\(\delta = \theta - \theta_0\)</span>) é obtido resolvendo a equação normal adaptada: <span class="math display">\[\delta = (\mathbf{F}_0^T \mathbf{F}_0)^{-1} \mathbf{F}_0^T [Y - \eta(x, \theta_0)]\]</span> Note a semelhança direta com o estimador de mínimos quadrados clássico <span class="math inline">\(\hat{\beta} = (\mathbf X^T \mathbf X)^{-1} \mathbf X^T \mathbf Y\)</span>, onde o vetor de “respostas ajustadas” passa a ser o vetor de resíduos atualizados da função não linear.</p>
 <!---
 O "vetor de respostas" que entra no lado direito da equação normal adaptada não é o $Y$ bruto original, mas sim o vetor de resíduos parciais ou respostas ajustadas iterativamente:$$[Y - \eta(x, \theta_0)]$$
@@ -924,7 +943,7 @@ Em suma: na regressão linear você ajusta os dados ($Y$), enquanto na regressã
 <h2 data-number="4.2" class="anchored" data-anchor-id="máxima-verossimilhança"><span class="header-section-number">4.2</span> Máxima verossimilhança</h2>
 <p>O método dos mínimos quadrados está diretamente relacionado à especificação de erros Gaussianos, independentes e com variância constante. Uma abordagem mais geral consiste em especificar uma distribuição de probabilidade para a variável resposta e obter os estimadores dos parâmetros por máxima verossimilhança.</p>
 <p>No caso da distribuição Gaussiana para <span class="math inline">\(Y|x\)</span>, a estimação por máxima verossimilhança consiste em encontrar os valores de <span class="math inline">\(\boldsymbol{\theta}\)</span> e <span class="math inline">\(\sigma^2\)</span> que maximizam a função de log-verossimilhança, denotada por <span id="eq-maxvero-mnl"><span class="math display">\[ \ell(\theta,\sigma^2) = -\frac{n}{2}log(2\pi) - \frac{n}{2}log(\sigma^2) - \frac{1}{2\sigma^2} \sum(y_i - \eta(x_i,\theta))^2 \tag{4.2}\]</span></span></p>
-<p>Sob as suposições de normalidade, independência e variância constante, maximizar a função de log-verossimilhança em relação a () é equivalente a minimizar a soma dos quadrados dos desvios, uma vez que ambos os procedimentos dependem da quantidade <span class="math inline">\(\sum_{i=1}^{n}(y_i - \eta(x_i,\boldsymbol{\theta}))^2\)</span>. Assim, os dois métodos não representam necessariamente modelos diferentes, mas correspondem a diferentes formas de formular a estimação sob determinadas suposições probabilísticas.</p>
+<p>Sob as suposições de normalidade, independência e variância constante, maximizar a função de log-verossimilhança em relação a <span class="math inline">\(\boldsymbol{\theta}\)</span> é equivalente a minimizar a soma dos quadrados dos desvios, uma vez que ambos os procedimentos dependem da quantidade <span class="math inline">\(\sum_{i=1}^{n}(y_i - \eta(x_i,\boldsymbol{\theta}))^2\)</span>. Assim, os dois métodos não representam necessariamente modelos diferentes, mas correspondem a diferentes formas de formular a estimação sob determinadas suposições probabilísticas.</p>
 <p>Em um contexto mais geral, portanto, a máxima verossimilhança permite incorporar explicitamente diferentes distribuições para a variável resposta e diferentes estruturas de variância.</p>
 <p>Entretanto, maximizar <a href="#eq-maxvero-mnl" class="quarto-xref">Equação&nbsp;4.2</a> envolve métodos numéricos iterativos, entre os quais se encontra o método de Newton-Raphson.</p>
 </section>
@@ -1412,7 +1431,7 @@ alternative hypothesis: true autocorrelation is not 0</code></pre>
 <section id="qualidade-do-ajuste-e-comparação-entre-modelos" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Qualidade do ajuste e comparação entre modelos</h1>
 <p>Diferentes funções não lineares podem representar de forma plausível um mesmo fenômeno. Para avaliar a qualidade dos ajustes e orientar a seleção do modelo mais adequado, comparamos diferentes medidas de adequabilidade.</p>
-<p>Para ilustrar essa comparação, além do modelo de Michaelis–Menten será considerado um <strong>modelo exponencial simples</strong>, dado por</p>
+<p>Para ilustrar essa comparação, além do modelo de Michaelis–Menten será considerado um <strong>modelo de saturação exponencial</strong>, dado por</p>
 <p><span class="math display">\[
 Y_i=
 \alpha\left(1-e^{-\kappa x_i}\right)
@@ -1421,7 +1440,7 @@ Y_i=
 <p>em que <span class="math inline">\(\alpha\)</span> representa a assíntota superior e <span class="math inline">\(\kappa&gt;0\)</span> controla a velocidade com que a resposta se aproxima dessa assíntota.</p>
 <p>O modelo pode ser ajustado por:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste do modelo exponencial simples</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste do modelo de saturação exponencial</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mod_exp <span class="ot">&lt;-</span> <span class="fu">nls</span>(</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  rate <span class="sc">~</span> alpha <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>kappa <span class="sc">*</span> conc)),</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> da_tratado,</span>
@@ -2079,6 +2098,17 @@ Tabela&nbsp;8.1: Etapas do ajuste de modelos de regressão não linear.
 <p>VENABLES, W.; RIPLEY, B. Modern applied statistics with S. Springer New York, 2013.</p>
 <p>ZEVIANI, W.M.; RIBEIRO JÚNIOR, P.J.; BONAT, W.H. Modelos de regressão não linear. Campina Grande: RBRAS; SEAGRO, 2013. Apostila do <span class="math inline">\(58^{\circ}\)</span> RBRAS e <span class="math inline">\(15^{\circ}\)</span> SEAGRO. Disponível em: <a href="http://www.leg.ufpr.br/walmes/mrnl2013" class="uri">http://www.leg.ufpr.br/walmes/mrnl2013</a>.</p>
 <script src="navegacao.js"></script>
+<!---
+padrão visual para seu relatório
+📌 🔎 Atenção
+⚠️ ❗Cuidado
+📝 📢 🔔 Nota
+💡 🧩 Exemplo
+🛠️Código
+📊 Resultado
+🎯 ✔️ Conclusão
+📚 Bibliografia
+--->
 </section>
 
 </main>
